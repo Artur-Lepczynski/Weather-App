@@ -1,4 +1,4 @@
-import "../node_modules/@splidejs/splide/dist/js/splide.min.js"; 
+// import "../node_modules/@splidejs/splide/dist/js/splide.min.js"; 
 //import methods and call with await, not temp data 
 import { tempCurrent, tempForecast } from "./weather.js";
 
