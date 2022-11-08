@@ -22,15 +22,15 @@
 
         <div id="main-display">
             <div id="main-info-wrapper">
-                <p id="main-display-location"><i class="fa-solid fa-location-dot" style="margin-right: 6px;"></i>Warsaw,
-                    Poland</p>
+                <p id="main-display-location">Warsaw,Poland</p>
                 <div id="icon-temp-wrapper">
-                    <img id="main-display-icon" src="http://openweathermap.org/img/wn/10d@4x.png" alt="">
+                    <img id="main-display-icon" src="http://openweathermap.org/img/wn/10d@4x.png" alt="weather icon"
+                        width="210" height="210">
                     <p id="main-display-temp">10°c</p>
                 </div>
                 <p id="weather-description">Clear Sky</p>
             </div>
-            
+
             <div id="more-info-wrapper">
                 <div id="low" class="more-info-unit">
                     <p>Low:</p>
@@ -68,14 +68,71 @@
             <p class="splide-description">Daily</p>
             <div id="daily-splide" class="splide">
                 <div class="splide__track">
-                    <ul class="splide__list">
-                        <div class="splide__slide">Slide 01</div>
-                        <div class="splide__slide">Slide 02</div>
-                        <div class="splide__slide">Slide 03</div>
-                        <div class="splide__slide">Slide 04</div>
-                        <div class="splide__slide">Slide 05</div>
-                    </ul>
+                    <ul id="daily-slide-list" class="splide__list">
+
+                        <div id="daily-slide-first" class="splide__slide daily-slide">
+                            <p class="daily-splide-day">Today</p>
+                            <div class="daily-splide-icon-temp-wrapper">
+                                <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+                                <div>
+                                    <p class="daily-splide-temp-max">1c</p>
+                                    <p class="daily-splide-temp-min">-3c</p>
+                                </div>
+                            </div>
+                            <p class="daily-splide-desc">heavy rain</p>
+                        </div>
+
+                        <div class="splide__slide daily-slide">
+                            <p class="daily-splide-day">Today</p>
+                            <div class="daily-splide-icon-temp-wrapper">
+                                <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+                                <div>
+                                    <p class="daily-splide-temp-max">1c</p>
+                                    <p class="daily-splide-temp-min">-3c</p>
+                                </div>
+                            </div>
+                            <p class="daily-splide-desc">heavy rain</p>
+                        </div>
+
+                        <div class="splide__slide daily-slide">
+                            <p class="daily-splide-day">Today</p>
+                            <div class="daily-splide-icon-temp-wrapper">
+                                <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+                                <div>
+                                    <p class="daily-splide-temp-max">1c</p>
+                                    <p class="daily-splide-temp-min">-3c</p>
+                                </div>
+                            </div>
+                            <p class="daily-splide-desc">heavy rain</p>
+                        </div>
+
+                        <div class="splide__slide daily-slide">
+                            <p class="daily-splide-day">Today</p>
+                            <div class="daily-splide-icon-temp-wrapper">
+                                <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+                                <div>
+                                    <p class="daily-splide-temp-max">1c</p>
+                                    <p class="daily-splide-temp-min">-3c</p>
+                                </div>
+                            </div>
+                            <p class="daily-splide-desc">heavy rain</p>
+                        </div>
+
+                        <div class="splide__slide daily-slide">
+                            <p class="daily-splide-day">Today</p>
+                            <div class="daily-splide-icon-temp-wrapper">
+                                <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+                                <div>
+                                    <p class="daily-splide-temp-max">1c</p>
+                                    <p class="daily-splide-temp-min">-3c</p>
+                                </div>
+                            </div>
+                            <p class="daily-splide-desc">heavy rain</p>
+                        </div>
+
                 </div>
+                </ul>
+            </div>
             </div>
         </section>
 

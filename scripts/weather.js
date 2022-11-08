@@ -1,3 +1,4 @@
+//TODO: hide new api key, deactivate current
 const apiKey = "6899af26e37dd213c3ddec188d94c8f6";
 
 async function getCurrentWeather(latitude, longitude) {

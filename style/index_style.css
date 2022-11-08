@@ -102,8 +102,34 @@ body{
     background-color: slategray;
 }
 
+.daily-splide-day, .daily-splide-desc{
+    margin: 7px;
+    text-align: center;
+}
 
-@media (max-width: 600px){
+.daily-splide-icon-temp-wrapper{
+    background-color: rgb(212, 100, 63);
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.daily-splide-icon{
+    margin-left: -40px;
+}
+
+.daily-splide-temp-max{
+    margin: 5px;
+    font-size: 1.3em;
+}
+
+.daily-splide-temp-min{
+    margin: 5px;
+    font-size: 1em;
+}
+
+@media (max-width: 620px){
     body{
         min-height: 800px;
     }
