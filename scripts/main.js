@@ -141,9 +141,9 @@ function getDailySlideData(day) {
     console.log("before splice:", day);
 
     if (day.length === 3) {
-        day = day.splice(0, 2);
+        day = day.slice(0, 2);
     } else if (day.length >= 4) {
-        day = day.splice(-4, 3);
+        day = day.slice(-4, day.length - 1);
     };
 
     console.log("after splice:", day);
