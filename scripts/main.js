@@ -56,8 +56,9 @@ async function updateWeatherData(){
         let forecast = JSON.parse(tempForecast); 
         console.log(typeof current, current); 
         // console.log(typeof forecast, JSON.stringify(forecast, null, "\t"));
+        let forecastList = createForecastList(forecast);
         updateMainDisplay(current); 
-        updateDailySlides(current, forecast); 
+        updateDailySlides(current, forecastList); 
         //TODO: remove loading animation
     }catch(err){
         console.log(err); 
@@ -82,9 +83,9 @@ function updateMainDisplay(current){
     moreInfoUnitsData[5].textContent = Math.round(current.clouds.all) + "%";
 };
 
-function updateDailySlides(current, forecast){
+function createForecastList(forecast){
     //create 5 elem list of maps, each for 1 day: 
-    let forecasts5Days = [];
+    let forecastList = [];
     let dateTemp = new Date();
 
     for (let i = 0; i < 5; i++) {
@@ -95,17 +96,19 @@ function updateDailySlides(current, forecast){
                 tempMap.set(date.getHours() - 1, item);
             }; 
         });
-        forecasts5Days.push(tempMap); 
+        forecastList.push(tempMap); 
         dateTemp.setDate(dateTemp.getDate() + 1); 
     };
-    console.log(forecasts5Days); 
+    console.log(forecastList); 
+    return forecastList;
+};
 
+function updateDailySlides(current, forecast){
     //measurement times: 0:00, 3, 6, 9, 12, 15, 18, 21
-    //get slide data:
     let today = new Date();
     console.log("today's hour:", today.getHours());
 
-    forecasts5Days.forEach((day, i)=>{
+    forecast.forEach((day, i)=>{
         if(i === 0){
             if(today.getHours() < 12){
                 applyDailySlideData(getSlideData(day), i);
