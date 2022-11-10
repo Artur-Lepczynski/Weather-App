@@ -55,6 +55,23 @@ const hourlySlidesMax = Array.from(document.querySelectorAll(".hourly-splide-tem
 const hourlySlidesMin = Array.from(document.querySelectorAll(".hourly-splide-temp-min"));
 const hourlySlidesDesc = Array.from(document.querySelectorAll(".hourly-splide-desc"));
 
+const dailySplides = document.querySelector("#daily-slide-list").children;
+let lastSelected = dailySplides[0];
+lastSelected.classList.add("slide-focused"); 
+
+let forecastList; 
+
+for (const item of dailySplides) {
+    item.addEventListener("click", (event)=>{
+        if(lastSelected !== event.currentTarget){
+            updateHourlySlides(forecastList, Number.parseInt(event.currentTarget.dataset.number));
+            lastSelected.classList.remove("slide-focused");
+            event.currentTarget.classList.add("slide-focused"); 
+            lastSelected = event.currentTarget; 
+        };
+    });
+};
+
 async function updateWeatherData() {
     try {
         //TODO: add loading animation
@@ -63,7 +80,7 @@ async function updateWeatherData() {
         let forecast = JSON.parse(tempForecast);
         // console.log(typeof current, current); 
         // console.log(typeof forecast, JSON.stringify(forecast, null, "\t"));
-        let forecastList = createForecastList(forecast);
+        forecastList = createForecastList(forecast);
         updateMainDisplay(current);
         updateDailySlides(current, forecastList);
         updateHourlySlides(forecastList, 0);

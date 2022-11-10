@@ -100,6 +100,8 @@ body{
 .splide__slide{
     height: 170px;
     background-color: slategray;
+    border: 3px solid black; 
+    box-sizing: border-box;
 }
 
 .daily-splide-day, .daily-splide-desc, .hourly-splide-hour, .hourly-splide-desc{
@@ -127,6 +129,10 @@ body{
 .daily-splide-temp-min, .hourly-splide-temp-min{
     margin: 5px;
     font-size: 1em;
+}
+
+.slide-focused{
+    border: 3px solid white; 
 }
 
 @media (max-width: 620px){
