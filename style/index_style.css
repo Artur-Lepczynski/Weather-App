@@ -102,12 +102,12 @@ body{
     background-color: slategray;
 }
 
-.daily-splide-day, .daily-splide-desc{
+.daily-splide-day, .daily-splide-desc, .hourly-splide-hour, .hourly-splide-desc{
     margin: 7px;
     text-align: center;
 }
 
-.daily-splide-icon-temp-wrapper{
+.daily-splide-icon-temp-wrapper, .hourly-splide-icon-temp-wrapper{
     background-color: rgb(212, 100, 63);
     height: 60%;
     display: flex;
@@ -115,16 +115,16 @@ body{
     align-items: center;
 }
 
-.daily-splide-icon{
+.daily-splide-icon, .hourly-splide-icon{
     margin-left: -40px;
 }
 
-.daily-splide-temp-max{
+.daily-splide-temp-max, .hourly-splide-temp-max{
     margin: 5px;
     font-size: 1.3em;
 }
 
-.daily-splide-temp-min{
+.daily-splide-temp-min, .hourly-splide-temp-min{
     margin: 5px;
     font-size: 1em;
 }

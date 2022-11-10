@@ -5,67 +5,28 @@ let tempForecast = `
 	"cnt": 40,
 	"list": [
 		{
-			"dt": 1668092400,
-			"main": {
-				"temp": 11.51,
-				"feels_like": 10.88,
-				"temp_min": 11.51,
-				"temp_max": 11.62,
-				"pressure": 1019,
-				"sea_level": 1019,
-				"grnd_level": 1009,
-				"humidity": 83,
-				"temp_kf": -0.11
-			},
-			"weather": [
-				{
-					"id": 500,
-					"main": "Rain",
-					"description": "light rain",
-					"icon": "10n"
-				}
-			],
-			"clouds": {
-				"all": 77
-			},
-			"wind": {
-				"speed": 4.66,
-				"deg": 277,
-				"gust": 9.59
-			},
-			"visibility": 10000,
-			"pop": 0.37,
-			"rain": {
-				"3h": 0.14
-			},
-			"sys": {
-				"pod": "n"
-			},
-			"dt_txt": "2022-11-10 15:00:00"
-		},
-		{
 			"dt": 1668103200,
 			"main": {
-				"temp": 10.36,
-				"feels_like": 9.46,
-				"temp_min": 9.81,
-				"temp_max": 10.36,
+				"temp": 9.77,
+				"feels_like": 7.6,
+				"temp_min": 9.77,
+				"temp_max": 9.81,
 				"pressure": 1022,
 				"sea_level": 1022,
 				"grnd_level": 1011,
-				"humidity": 77,
-				"temp_kf": 0.55
+				"humidity": 84,
+				"temp_kf": -0.04
 			},
 			"weather": [
 				{
-					"id": 803,
+					"id": 802,
 					"main": "Clouds",
-					"description": "broken clouds",
-					"icon": "04n"
+					"description": "scattered clouds",
+					"icon": "03n"
 				}
 			],
 			"clouds": {
-				"all": 70
+				"all": 36
 			},
 			"wind": {
 				"speed": 4.26,
@@ -82,15 +43,15 @@ let tempForecast = `
 		{
 			"dt": 1668114000,
 			"main": {
-				"temp": 8.63,
-				"feels_like": 6.64,
+				"temp": 9,
+				"feels_like": 7.09,
 				"temp_min": 8.63,
-				"temp_max": 8.63,
-				"pressure": 1027,
-				"sea_level": 1027,
+				"temp_max": 9,
+				"pressure": 1025,
+				"sea_level": 1025,
 				"grnd_level": 1013,
-				"humidity": 81,
-				"temp_kf": 0
+				"humidity": 84,
+				"temp_kf": 0.37
 			},
 			"weather": [
 				{
@@ -101,7 +62,7 @@ let tempForecast = `
 				}
 			],
 			"clouds": {
-				"all": 5
+				"all": 10
 			},
 			"wind": {
 				"speed": 3.38,
@@ -1446,6 +1407,42 @@ let tempForecast = `
 				"pod": "d"
 			},
 			"dt_txt": "2022-11-15 12:00:00"
+		},
+		{
+			"dt": 1668524400,
+			"main": {
+				"temp": 9.78,
+				"feels_like": 9,
+				"temp_min": 9.78,
+				"temp_max": 9.78,
+				"pressure": 1013,
+				"sea_level": 1013,
+				"grnd_level": 999,
+				"humidity": 68,
+				"temp_kf": 0
+			},
+			"weather": [
+				{
+					"id": 804,
+					"main": "Clouds",
+					"description": "overcast clouds",
+					"icon": "04n"
+				}
+			],
+			"clouds": {
+				"all": 89
+			},
+			"wind": {
+				"speed": 1.92,
+				"deg": 264,
+				"gust": 3.53
+			},
+			"visibility": 10000,
+			"pop": 0,
+			"sys": {
+				"pod": "n"
+			},
+			"dt_txt": "2022-11-15 15:00:00"
 		}
 	],
 	"city": {
