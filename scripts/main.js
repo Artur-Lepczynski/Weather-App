@@ -48,6 +48,13 @@ const dailySlidesMax = Array.from(document.querySelectorAll(".daily-splide-temp-
 const dailySlidesMin = Array.from(document.querySelectorAll(".daily-splide-temp-min"));
 const dailySlidesDesc = Array.from(document.querySelectorAll(".daily-splide-desc"));
 
+//select hourly slide elements
+const hourlySlidesHours = Array.from(document.querySelectorAll(".hourly-splide-hour"));
+const hourlySlidesIcons = Array.from(document.querySelectorAll(".hourly-splide-icon"));
+const hourlySlidesMax = Array.from(document.querySelectorAll(".hourly-splide-temp-max"));
+const hourlySlidesMin = Array.from(document.querySelectorAll(".hourly-splide-temp-min"));
+const hourlySlidesDesc = Array.from(document.querySelectorAll(".hourly-splide-desc"));
+
 async function updateWeatherData() {
     try {
         //TODO: add loading animation
@@ -59,7 +66,7 @@ async function updateWeatherData() {
         let forecastList = createForecastList(forecast);
         updateMainDisplay(current);
         updateDailySlides(current, forecastList);
-        // updateHourlySlides(forecastList, 1);
+        updateHourlySlides(forecastList, 0);
         //TODO: remove loading animation
     } catch (err) {
         console.log(err);
@@ -117,7 +124,7 @@ function updateDailySlides(current, forecastList) {
     console.log("time in selected timezone: ", today.getHours(), today.getMinutes());
 
     forecastList.forEach((day, i) => {
-        console.log("day slide for day:", i, day.length);
+        // console.log("day slide for day:", i, day.length);
         if (i === 0) {
             if (day.length !== 0) {
                 applyDailySlideData(getDailySlideData(day), i);
@@ -138,7 +145,7 @@ function getDailySlideData(day) {
     let tempMaxAvg = 0;
     let tempMinAvg = 0;
 
-    console.log("before splice:", day);
+    // console.log("before splice:", day);
 
     if (day.length === 3) {
         day = day.slice(0, 2);
@@ -146,7 +153,7 @@ function getDailySlideData(day) {
         day = day.slice(-4, day.length - 1);
     };
 
-    console.log("after splice:", day);
+    // console.log("after splice:", day);
 
     day.forEach(item => {
         tempMaxAvg += item.main.temp_max;
@@ -181,32 +188,37 @@ function applyDailySlideData(data, dayNumber) {
     dailySlidesDesc[dayNumber].textContent = data.description;
 };
 
-const hourlySlidesHours = Array.from(document.querySelector(".hourly-splide-hour"));
-const hourlySlidesIcons = Array.from(document.querySelectorAll(".hourly-splide-icon"));
-const hourlySlidesMax = Array.from(document.querySelectorAll(".hourly-splide-temp-max"));
-const hourlySlidesMin = Array.from(document.querySelectorAll(".hourly-splide-temp-min"));
-const hourlySlidesDesc = Array.from(document.querySelectorAll(".hourly-splide-desc"));
-
 function updateHourlySlides(forecastList, day) {
+    let forecast = forecastList[day];
+
     if (day === 0) {
-
-    } else {
-        let forecast = forecastList[day];
-        let hourNumber = 0;
-        for (let forecastHour of forecast.values()) {
-            applyHourlySlideData(forecastHour, hourNumber);
-            hourNumber++;
-        };
-
+        let itemsFromNextDayLength = 8 - forecastList[0].length;
+        forecast = forecastList[0].concat(forecastList[1].slice(0, itemsFromNextDayLength)); 
     };
+
+    forecast.forEach((item, i)=>{
+        applyHourlySlideData(item, i);
+    });
+
 };
 
 function applyHourlySlideData(data, hourNumber) {
     //convert forecast times to Warsaw timezone
     let forecastDate = convertToTimezone(new Date((data.dt) * 1000));
+    let today = convertToTimezone(new Date()); 
+    let timeString; 
 
-    let timeString = Intl.DateTimeFormat("en", { hour12: false, hour: "numeric", minute: "numeric" }).format(forecastDate);
-    console.log(timeString);
+    if(today.getDate() === forecastDate.getDate()){
+        timeString = "Today, " + Intl.DateTimeFormat("en", { hour12: false, hour: "numeric", minute: "numeric" }).format(forecastDate);
+    }else{
+        timeString = Intl.DateTimeFormat("en", { hour12: false, weekday: "short", day: "2-digit", hour: "numeric", minute: "numeric" }).format(forecastDate);
+    };
+    
+    hourlySlidesHours[hourNumber].textContent = timeString; 
+    hourlySlidesIcons[hourNumber].src = getIconURL(data.weather[0].icon);
+    hourlySlidesMax[hourNumber].textContent = Math.round(data.main.temp_max) + tempUnitCelcius;
+    hourlySlidesMin[hourNumber].textContent = Math.round(data.main.temp_min) + tempUnitCelcius;
+    hourlySlidesDesc[hourNumber].textContent = data.weather[0].description; 
 };
 
 function getIconURL(icon) {
