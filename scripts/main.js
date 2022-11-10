@@ -60,6 +60,7 @@ let lastSelected = dailySplides[0];
 lastSelected.classList.add("slide-focused"); 
 
 let forecastList; 
+let timezone; 
 
 for (const item of dailySplides) {
     item.addEventListener("click", (event)=>{
@@ -78,9 +79,10 @@ async function updateWeatherData() {
         // let {current, forecast} = await getWeather();
         let current = JSON.parse(tempCurrent);
         let forecast = JSON.parse(tempForecast);
-        // console.log(typeof current, current); 
+        // console.log(typeof current, JSON.stringify(current, null, "\t")); 
         // console.log(typeof forecast, JSON.stringify(forecast, null, "\t"));
-        forecastList = createForecastList(forecast);
+        timezone = current.timezone; 
+        forecastList = createForecastList(current, forecast);
         updateMainDisplay(current);
         updateDailySlides(current, forecastList);
         updateHourlySlides(forecastList, 0);
@@ -108,25 +110,25 @@ function updateMainDisplay(current) {
     moreInfoUnitsData[5].textContent = Math.round(current.clouds.all) + "%";
 };
 
-function convertToTimezone(date, timezone = "Europe/Warsaw"){
-    let temp = date.toLocaleString("en", { timeZone: timezone });
-    return new Date(temp); 
+function convertToTimezone(timestamp, timezone){
+    return new Date((timestamp + timezone) * 1000);
 };
 
-function createForecastList(forecast) {
+function createForecastList(current, forecast) {
     //create 5 elem list of maps, each for 1 day: 
     let forecastList = [];
     //dateTemp in local time (warsaw)
-    let dateTemp = convertToTimezone(new Date()); 
+    let dateTemp = convertToTimezone(current.dt, current.timezone); 
+    console.log(dateTemp.getUTCDate());
 
     for (let i = 0; i < 5; i++) {
         let forecastForDay = forecast.list.filter((item) => {
-            let date = convertToTimezone(new Date(item.dt * 1000)); 
-            if (date.getDate() === dateTemp.getDate()) return true;
+            let date = convertToTimezone(item.dt, current.timezone);
+            if (date.getUTCDate() === dateTemp.getUTCDate()) return true;
         });
     
         forecastList.push(forecastForDay);
-        dateTemp.setDate(dateTemp.getDate() + 1);
+        dateTemp.setUTCDate(dateTemp.getUTCDate() + 1);
     };
 
     console.log("forecast list:", forecastList);
@@ -137,8 +139,8 @@ function updateDailySlides(current, forecastList) {
     //measurement times: 0:00, 3, 6, 9, 12, 15, 18, 21
 
     //today in forecast location (Warsaw) (for console display purpose only)
-    let today = convertToTimezone(new Date());
-    console.log("time in selected timezone: ", today.getHours(), today.getMinutes());
+    let today = convertToTimezone(current.dt, current.timezone);
+    console.log("time in selected timezone: ", today.getUTCHours(), today.getUTCMinutes());
 
     forecastList.forEach((day, i) => {
         // console.log("day slide for day:", i, day.length);
@@ -186,9 +188,9 @@ function getDailySlideData(day) {
     let description = day[index].weather[0].description;
     let iconSrc = day[index].weather[0].icon;
 
-    let currentDay = convertToTimezone(new Date(day[0].dt * 1000));
+    let currentDay = convertToTimezone(day[0].dt, timezone);
 
-    // console.log(currentDay, tempMaxAvg, tempMinAvg, description, iconSrc);
+    console.log(currentDay, tempMaxAvg, tempMinAvg, description, iconSrc);
     return { currentDay, tempMaxAvg, tempMinAvg, description, iconSrc };
 };
 
@@ -207,7 +209,7 @@ function applyDailySlideData(data, dayNumber) {
 
 function updateHourlySlides(forecastList, day) {
     let forecast = forecastList[day];
-
+    
     if (day === 0) {
         let itemsFromNextDayLength = 8 - forecastList[0].length;
         forecast = forecastList[0].concat(forecastList[1].slice(0, itemsFromNextDayLength)); 
@@ -216,19 +218,18 @@ function updateHourlySlides(forecastList, day) {
     forecast.forEach((item, i)=>{
         applyHourlySlideData(item, i);
     });
-
 };
 
 function applyHourlySlideData(data, hourNumber) {
     //convert forecast times to Warsaw timezone
-    let forecastDate = convertToTimezone(new Date((data.dt) * 1000));
-    let today = convertToTimezone(new Date()); 
+    let forecastDate = convertToTimezone(data.dt, timezone);
+    let today = convertToTimezone(new Date().valueOf() / 1000, timezone); 
     let timeString; 
 
     if(today.getDate() === forecastDate.getDate()){
-        timeString = "Today, " + Intl.DateTimeFormat("en", { hour12: false, hour: "numeric", minute: "numeric" }).format(forecastDate);
+        timeString = "Today, " + Intl.DateTimeFormat("en", {timeZone: "UTC", hour12: false, hour: "numeric", minute: "numeric" }).format(forecastDate);
     }else{
-        timeString = Intl.DateTimeFormat("en", { hour12: false, weekday: "short", day: "2-digit", hour: "numeric", minute: "numeric" }).format(forecastDate);
+        timeString = Intl.DateTimeFormat("en", {timeZone: "UTC", hour12: false, weekday: "short", day: "2-digit", hour: "numeric", minute: "numeric" }).format(forecastDate);
     };
     
     hourlySlidesHours[hourNumber].textContent = timeString; 
