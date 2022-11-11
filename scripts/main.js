@@ -1,8 +1,8 @@
 //import "../node_modules/@splidejs/splide/dist/js/splide.min.js"; 
 import { getWeather, tempCurrent, tempForecast } from "./weather.js";
 
-const dailySplide = document.querySelector("#daily-splide");
-const hourlySplide = document.querySelector("#hourly-splide");
+const dailySplideElement = document.querySelector("#daily-splide");
+const hourlySplideElement = document.querySelector("#hourly-splide");
 const splideOptions = {
     perPage: 5,
     perMove: 1,
@@ -25,15 +25,22 @@ const splideOptions = {
     }
 };
 
-new Splide(dailySplide, splideOptions).mount();
-new Splide(hourlySplide, splideOptions).mount();
+new Splide(dailySplideElement, splideOptions).mount();
+const hourlySplide = new Splide(hourlySplideElement, splideOptions);
+hourlySplide.mount(); 
 
 const tempUnitCelcius = "°c";
 const mainLocationIcon = document.createElement("i");
 mainLocationIcon.className = "fa-solid fa-location-dot";
 mainLocationIcon.style.marginRight = "6px";
 
+const mainReloadIcon = document.createElement("i"); 
+mainReloadIcon.className = "fa-solid fa-rotate-right";
+mainReloadIcon.style.marginLeft = "6px";
+mainReloadIcon.style.cursor = "pointer"; 
+
 const mainLocation = document.querySelector("#main-display-location");
+const mainDate = document.querySelector("#main-display-date");
 const mainIcon = document.querySelector("#main-display-icon");
 const mainTemp = document.querySelector("#main-display-temp");
 const mainWeatherDescription = document.querySelector("#weather-description");
@@ -56,33 +63,45 @@ const hourlySlidesMin = Array.from(document.querySelectorAll(".hourly-splide-tem
 const hourlySlidesDesc = Array.from(document.querySelectorAll(".hourly-splide-desc"));
 
 const dailySplides = document.querySelector("#daily-slide-list").children;
-let lastSelected = dailySplides[0];
-lastSelected.classList.add("slide-focused"); 
+let lastSelected;
 
+let latitude = 52.22;
+let longitude = 21.01;
 let forecastList; 
 let timezone; 
 
+mainReloadIcon.addEventListener("click", (event)=>{
+    updateWeatherData(latitude, longitude);
+    hourlySplide.go(0);
+});
+
 for (const item of dailySplides) {
     item.addEventListener("click", (event)=>{
-        if(lastSelected !== event.currentTarget){
-            updateHourlySlides(forecastList, Number.parseInt(event.currentTarget.dataset.number));
-            lastSelected.classList.remove("slide-focused");
-            event.currentTarget.classList.add("slide-focused"); 
-            lastSelected = event.currentTarget; 
-        };
+        selectDailySlide(event.currentTarget);
     });
 };
 
-async function updateWeatherData() {
+function selectDailySlide(slide){
+    if(lastSelected !== slide){
+        updateHourlySlides(forecastList, Number.parseInt(slide.dataset.number));
+        lastSelected?.classList.remove("slide-focused");
+        slide.classList.add("slide-focused"); 
+        lastSelected = slide;
+        hourlySplide.go(0);
+    };
+};
+
+async function updateWeatherData(latitude, longitude) {
     try {
         //TODO: add loading animation
-        // let {current, forecast} = await getWeather();
+        // let {current, forecast} = await getWeather(latitude, longitude);
         let current = JSON.parse(tempCurrent);
         let forecast = JSON.parse(tempForecast);
         // console.log(typeof current, JSON.stringify(current, null, "\t")); 
         // console.log(typeof forecast, JSON.stringify(forecast, null, "\t"));
         timezone = current.timezone; 
         forecastList = createForecastList(current, forecast);
+        selectDailySlide(dailySplides[0]);
         updateMainDisplay(current);
         updateDailySlides(current, forecastList);
         updateHourlySlides(forecastList, 0);
@@ -93,11 +112,26 @@ async function updateWeatherData() {
     };
 };
 
-updateWeatherData();
+updateWeatherData(latitude, longitude);
 
 function updateMainDisplay(current) {
     mainLocation.textContent = current.name + ", " + current.sys.country;
     mainLocation.prepend(mainLocationIcon);
+
+    let date = convertToTimezone(current.dt, current.timezone);
+    let dateString = Intl.DateTimeFormat("gb", 
+    {timeZone: "UTC", 
+    weekday: "short",
+    day: "2-digit", 
+    month: "2-digit", 
+    year: "numeric",
+    hour: "2-digit", 
+    minute: "2-digit",
+    hour12: false
+    }).format(date);
+    mainDate.textContent = dateString; 
+    mainDate.append(mainReloadIcon); 
+
     mainIcon.src = `http://openweathermap.org/img/wn/${current.weather[0].icon}@4x.png`;
     mainTemp.textContent = Math.round(current.main.temp) + tempUnitCelcius;
     mainWeatherDescription.textContent = current.weather[0].description;
@@ -119,7 +153,6 @@ function createForecastList(current, forecast) {
     let forecastList = [];
     //dateTemp in local time (warsaw)
     let dateTemp = convertToTimezone(current.dt, current.timezone); 
-    console.log(dateTemp.getUTCDate());
 
     for (let i = 0; i < 5; i++) {
         let forecastForDay = forecast.list.filter((item) => {
@@ -190,7 +223,7 @@ function getDailySlideData(day) {
 
     let currentDay = convertToTimezone(day[0].dt, timezone);
 
-    console.log(currentDay, tempMaxAvg, tempMinAvg, description, iconSrc);
+    // console.log(currentDay, tempMaxAvg, tempMinAvg, description, iconSrc);
     return { currentDay, tempMaxAvg, tempMinAvg, description, iconSrc };
 };
 

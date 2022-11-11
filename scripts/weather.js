@@ -27,7 +27,7 @@ async function getForecastWeather(latitude, longitude){
     });
 };
 
-async function getWeather(latitude = 52.22, longitude = 21.01){
+async function getWeather(latitude, longitude){
     let [current, forecast] = await Promise.all([getCurrentWeather(latitude, longitude), getForecastWeather(latitude, longitude)]); 
     return {current, forecast};
 };

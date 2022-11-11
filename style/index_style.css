@@ -29,8 +29,13 @@ body{
 }
 
 #main-display-location{
-    margin: 10px 0px;
+    margin: 5px 0px;
     font-size: 26px;
+    text-align: center;
+}
+
+#main-display-date{
+    margin: 5px;
     text-align: center;
 }
 
