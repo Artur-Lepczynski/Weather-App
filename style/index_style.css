@@ -1,5 +1,6 @@
 :root{
     --main-transition-duration: 150ms;
+    --main-animation-duration: 600ms;
 }
 
 body{
@@ -29,7 +30,31 @@ body{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    position: relative;
+    overflow: hidden;
     background-color: rgb(39, 133, 101);
+    transition: background-image var(--main-transition-duration);
+}
+
+.display-loading::before{
+    content: "";
+    width: 200%;
+    height: 100%;
+    position: absolute; 
+    top: 0px;
+    right: 0px;
+    z-index: 100;
+    background-image: repeating-linear-gradient(90deg, var(--loading-color-1) 100px, var(--loading-color-2) 200px, var(--loading-color-1) 300px);
+    animation: var(--main-animation-duration) infinite linear loading; 
+}
+
+@keyframes loading{
+    from{
+        transform: translateX(0px);
+    }
+    to{
+        transform: translateX(200px);
+    }
 }
 
 #main-display-location{
@@ -109,6 +134,7 @@ body{
     height: 170px;
     width: 100%;
     margin: 10px auto; 
+    overflow: hidden;
     background-color: lightcoral;
 }
 

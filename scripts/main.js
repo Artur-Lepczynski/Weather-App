@@ -40,6 +40,7 @@ mainReloadIcon.className = "fa-solid fa-rotate-right";
 mainReloadIcon.style.marginLeft = "6px";
 mainReloadIcon.style.cursor = "pointer"; 
 
+const mainDisplay = document.querySelector("#main-display"); 
 const mainLocation = document.querySelector("#main-display-location");
 const mainDate = document.querySelector("#main-display-date");
 const mainIcon = document.querySelector("#main-display-icon");
@@ -116,7 +117,7 @@ function selectDailySlide(slide){
 
 async function updateWeatherData(latitude, longitude) {
     try {
-        //TODO: add loading animation
+        toggleLoadingAnimation(true); 
         let {current, forecast} = await getWeather(latitude, longitude);
         // let current = JSON.parse(tempCurrent);
         // let forecast = JSON.parse(tempForecast);
@@ -128,7 +129,7 @@ async function updateWeatherData(latitude, longitude) {
         updateMainDisplay(current);
         updateDailySlides(current, forecastList);
         updateHourlySlides(forecastList, 0);
-        //TODO: remove loading animation
+        toggleLoadingAnimation(false); 
     } catch (err) {
         console.log(err);
         showError();
@@ -136,6 +137,15 @@ async function updateWeatherData(latitude, longitude) {
 };
 
 updateWeatherData(latitude, longitude);
+
+function toggleLoadingAnimation(on){
+    let temp = [dailySplideElement, hourlySplideElement, mainDisplay]; 
+    if(on){
+        temp.forEach((item)=>{item.classList.add("display-loading")}); 
+    }else{
+        temp.forEach((item)=>{item.classList.remove("display-loading")}); 
+    };
+};
 
 function updateMainDisplay(current) {
     mainLocation.textContent = (current.name || "unknown") + ", " + (current.sys.country || "--");

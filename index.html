@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/day_index_style.css">
+    <link rel="stylesheet" href="./style/night_index_style.css" disabled>
     <link rel="stylesheet" href="./style/index_style.css">
     <link rel="stylesheet" href="./node_modules/@splidejs/splide/dist/css/splide.min.css">
     <link rel="stylesheet" href="./node_modules/@splidejs/splide/dist/css/themes/splide-skyblue.min.css">
@@ -27,115 +29,115 @@
 
     <main id="main">
 
-        <div id="main-display">
+        <div id="main-display" class="display-loading">
             <div id="main-info-wrapper">
-                <p id="main-display-location">Warsaw,Poland</p>
-                <p id="main-display-date">date goes here</p>
+                <p id="main-display-location">-- ,--</p>
+                <p id="main-display-date">--</p>
                 <div id="icon-temp-wrapper">
                     <img id="main-display-icon" src="http://openweathermap.org/img/wn/10d@4x.png" alt="weather icon"
                         width="210" height="210">
-                    <p id="main-display-temp">10°c</p>
+                    <p id="main-display-temp">--°c</p>
                 </div>
-                <p id="weather-description">Clear Sky</p>
+                <p id="weather-description">--</p>
             </div>
 
             <div id="more-info-wrapper">
                 <div id="low" class="more-info-unit">
                     <p>Low:</p>
-                    <p>5°c</p>
+                    <p>--°c</p>
                 </div>
 
                 <div id="high" class="more-info-unit">
                     <p>High:</p>
-                    <p>13°c</p>
+                    <p>--°c</p>
                 </div>
 
                 <div id="feels-like" class="more-info-unit">
                     <p>Feels like:</p>
-                    <p>10°c</p>
+                    <p>--°c</p>
                 </div>
 
                 <div id="pressure" class="more-info-unit">
                     <p>Pressure:</p>
-                    <p>1045 mb</p>
+                    <p>-- mb</p>
                 </div>
 
                 <div id="humidity" class="more-info-unit">
                     <p>Humidity:</p>
-                    <p>34%</p>
+                    <p>--%</p>
                 </div>
 
                 <div id="clouds" class="more-info-unit">
                     <p>Clouds:</p>
-                    <p>67%</p>
+                    <p>--%</p>
                 </div>
             </div>
         </div>
 
         <section class="splide-wrapper">
             <p class="splide-description">Daily</p>
-            <div id="daily-splide" class="splide">
+            <div id="daily-splide" class="splide display-loading">
                 <div class="splide__track">
                     <ul id="daily-slide-list" class="splide__list">
 
                         <div class="splide__slide daily-slide" data-number="0">
-                            <p class="daily-splide-day">Today</p>
+                            <p class="daily-splide-day">--</p>
                             <div class="daily-splide-icon-temp-wrapper">
                                 <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="daily-splide-temp-max">1c</p>
-                                    <p class="daily-splide-temp-min">-3c</p>
+                                    <p class="daily-splide-temp-max">--°c</p>
+                                    <p class="daily-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="daily-splide-desc">heavy rain</p>
+                            <p class="daily-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide daily-slide" data-number="1">
-                            <p class="daily-splide-day">Today</p>
+                            <p class="daily-splide-day">--</p>
                             <div class="daily-splide-icon-temp-wrapper">
                                 <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="daily-splide-temp-max">1c</p>
-                                    <p class="daily-splide-temp-min">-3c</p>
+                                    <p class="daily-splide-temp-max">--°c</p>
+                                    <p class="daily-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="daily-splide-desc">heavy rain</p>
+                            <p class="daily-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide daily-slide" data-number="2">
-                            <p class="daily-splide-day">Today</p>
+                            <p class="daily-splide-day">--</p>
                             <div class="daily-splide-icon-temp-wrapper">
                                 <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="daily-splide-temp-max">1c</p>
-                                    <p class="daily-splide-temp-min">-3c</p>
+                                    <p class="daily-splide-temp-max">--°c</p>
+                                    <p class="daily-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="daily-splide-desc">heavy rain</p>
+                            <p class="daily-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide daily-slide" data-number="3">
-                            <p class="daily-splide-day">Today</p>
+                            <p class="daily-splide-day">--</p>
                             <div class="daily-splide-icon-temp-wrapper">
                                 <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="daily-splide-temp-max">1c</p>
-                                    <p class="daily-splide-temp-min">-3c</p>
+                                    <p class="daily-splide-temp-max">--°c</p>
+                                    <p class="daily-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="daily-splide-desc">heavy rain</p>
+                            <p class="daily-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide daily-slide" data-number="4">
-                            <p class="daily-splide-day">Today</p>
+                            <p class="daily-splide-day">--</p>
                             <div class="daily-splide-icon-temp-wrapper">
                                 <img class="daily-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="daily-splide-temp-max">1c</p>
-                                    <p class="daily-splide-temp-min">-3c</p>
+                                    <p class="daily-splide-temp-max">--°c</p>
+                                    <p class="daily-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="daily-splide-desc">heavy rain</p>
+                            <p class="daily-splide-desc">--</p>
                         </div>
 
                 </div>
@@ -146,104 +148,104 @@
 
         <section class="splide-wrapper">
             <p class="splide-description">Hourly</p>
-            <div id="hourly-splide" class="splide">
+            <div id="hourly-splide" class="splide display-loading">
                 <div class="splide__track">
                     <ul class="splide__list">
 
                         <div class="splide__slide hourly-slide">
-                            <p class="hourly-splide-hour">Midnight</p>
+                            <p class="hourly-splide-hour">--</p>
                             <div class="hourly-splide-icon-temp-wrapper">
                                 <img class="hourly-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="hourly-splide-temp-max">1c</p>
-                                    <p class="hourly-splide-temp-min">-3c</p>
+                                    <p class="hourly-splide-temp-max">--°c</p>
+                                    <p class="hourly-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="hourly-splide-desc">heavy rain</p>
+                            <p class="hourly-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide hourly-slide">
-                            <p class="hourly-splide-hour">Midnight</p>
+                            <p class="hourly-splide-hour">--</p>
                             <div class="hourly-splide-icon-temp-wrapper">
                                 <img class="hourly-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="hourly-splide-temp-max">1c</p>
-                                    <p class="hourly-splide-temp-min">-3c</p>
+                                    <p class="hourly-splide-temp-max">--°c</p>
+                                    <p class="hourly-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="hourly-splide-desc">heavy rain</p>
+                            <p class="hourly-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide hourly-slide">
-                            <p class="hourly-splide-hour">Midnight</p>
+                            <p class="hourly-splide-hour">--</p>
                             <div class="hourly-splide-icon-temp-wrapper">
                                 <img class="hourly-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="hourly-splide-temp-max">1c</p>
-                                    <p class="hourly-splide-temp-min">-3c</p>
+                                    <p class="hourly-splide-temp-max">--°c</p>
+                                    <p class="hourly-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="hourly-splide-desc">heavy rain</p>
+                            <p class="hourly-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide hourly-slide">
-                            <p class="hourly-splide-hour">Midnight</p>
+                            <p class="hourly-splide-hour">--</p>
                             <div class="hourly-splide-icon-temp-wrapper">
                                 <img class="hourly-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="hourly-splide-temp-max">1c</p>
-                                    <p class="hourly-splide-temp-min">-3c</p>
+                                    <p class="hourly-splide-temp-max">--°c</p>
+                                    <p class="hourly-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="hourly-splide-desc">heavy rain</p>
+                            <p class="hourly-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide hourly-slide">
-                            <p class="hourly-splide-hour">Midnight</p>
+                            <p class="hourly-splide-hour">--</p>
                             <div class="hourly-splide-icon-temp-wrapper">
                                 <img class="hourly-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="hourly-splide-temp-max">1c</p>
-                                    <p class="hourly-splide-temp-min">-3c</p>
+                                    <p class="hourly-splide-temp-max">--°c</p>
+                                    <p class="hourly-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="hourly-splide-desc">heavy rain</p>
+                            <p class="hourly-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide hourly-slide">
-                            <p class="hourly-splide-hour">Midnight</p>
+                            <p class="hourly-splide-hour">--</p>
                             <div class="hourly-splide-icon-temp-wrapper">
                                 <img class="hourly-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="hourly-splide-temp-max">1c</p>
-                                    <p class="hourly-splide-temp-min">-3c</p>
+                                    <p class="hourly-splide-temp-max">--°c</p>
+                                    <p class="hourly-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="hourly-splide-desc">heavy rain</p>
+                            <p class="hourly-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide hourly-slide">
-                            <p class="hourly-splide-hour">Midnight</p>
+                            <p class="hourly-splide-hour">--</p>
                             <div class="hourly-splide-icon-temp-wrapper">
                                 <img class="hourly-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="hourly-splide-temp-max">1c</p>
-                                    <p class="hourly-splide-temp-min">-3c</p>
+                                    <p class="hourly-splide-temp-max">--°c</p>
+                                    <p class="hourly-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="hourly-splide-desc">heavy rain</p>
+                            <p class="hourly-splide-desc">--</p>
                         </div>
 
                         <div class="splide__slide hourly-slide">
-                            <p class="hourly-splide-hour">Midnight</p>
+                            <p class="hourly-splide-hour">--</p>
                             <div class="hourly-splide-icon-temp-wrapper">
                                 <img class="hourly-splide-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                                 <div>
-                                    <p class="hourly-splide-temp-max">1c</p>
-                                    <p class="hourly-splide-temp-min">-3c</p>
+                                    <p class="hourly-splide-temp-max">--°c</p>
+                                    <p class="hourly-splide-temp-min">--°c</p>
                                 </div>
                             </div>
-                            <p class="hourly-splide-desc">heavy rain</p>
+                            <p class="hourly-splide-desc">--</p>
                         </div>
 
                     </ul>
