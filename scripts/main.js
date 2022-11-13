@@ -1,5 +1,6 @@
 //import "../node_modules/@splidejs/splide/dist/js/splide.min.js"; 
 import { getWeather, tempCurrent, tempForecast } from "./weather.js";
+import { tempLatitude, tempLongitude, setViewAndMarker } from "./map.js";
 
 const dailySplideElement = document.querySelector("#daily-splide");
 const hourlySplideElement = document.querySelector("#hourly-splide");
@@ -65,10 +66,32 @@ const hourlySlidesDesc = Array.from(document.querySelectorAll(".hourly-splide-de
 const dailySplides = document.querySelector("#daily-slide-list").children;
 let lastSelected;
 
-let latitude = 52.22;
-let longitude = 21.01;
+export let latitude = 52.22;
+export let longitude = 21.01;
 let forecastList; 
 let timezone; 
+
+let popup = document.querySelector("#map-popup-wrapper");
+let popupButtonSelect = document.querySelector("#button-select"); 
+let popupButtonCancel = document.querySelector("#button-cancel"); 
+
+mainLocation.addEventListener("click", (event)=>{
+    popup.classList.remove("popup-hidden");
+});
+
+popupButtonSelect.addEventListener("click", (event)=>{
+    popup.classList.add("popup-hidden");
+    latitude = tempLatitude; 
+    longitude = tempLongitude; 
+    updateWeatherData(latitude, longitude);
+});
+
+popupButtonCancel.addEventListener("click", (event)=>{
+    popup.classList.add("popup-hidden");
+    setTimeout(()=>{
+        setViewAndMarker(latitude, longitude);
+    }, 100); 
+});
 
 mainReloadIcon.addEventListener("click", (event)=>{
     updateWeatherData(latitude, longitude);
@@ -94,9 +117,9 @@ function selectDailySlide(slide){
 async function updateWeatherData(latitude, longitude) {
     try {
         //TODO: add loading animation
-        // let {current, forecast} = await getWeather(latitude, longitude);
-        let current = JSON.parse(tempCurrent);
-        let forecast = JSON.parse(tempForecast);
+        let {current, forecast} = await getWeather(latitude, longitude);
+        // let current = JSON.parse(tempCurrent);
+        // let forecast = JSON.parse(tempForecast);
         // console.log(typeof current, JSON.stringify(current, null, "\t")); 
         // console.log(typeof forecast, JSON.stringify(forecast, null, "\t"));
         timezone = current.timezone; 
@@ -115,7 +138,7 @@ async function updateWeatherData(latitude, longitude) {
 updateWeatherData(latitude, longitude);
 
 function updateMainDisplay(current) {
-    mainLocation.textContent = current.name + ", " + current.sys.country;
+    mainLocation.textContent = (current.name || "unknown") + ", " + (current.sys.country || "--");
     mainLocation.prepend(mainLocationIcon);
 
     let date = convertToTimezone(current.dt, current.timezone);

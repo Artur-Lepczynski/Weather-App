@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Artur-Lepczynski/Weather-App#readme",
   "dependencies": {
-    "@splidejs/splide": "^4.1.3"
+    "@splidejs/splide": "^4.1.3",
+    "leaflet": "^1.9.2"
   }
 }

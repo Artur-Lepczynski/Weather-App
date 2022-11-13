@@ -9,12 +9,19 @@
     <link rel="stylesheet" href="./node_modules/@splidejs/splide/dist/css/splide.min.css">
     <link rel="stylesheet" href="./node_modules/@splidejs/splide/dist/css/themes/splide-skyblue.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+     integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+     crossorigin=""/>
     <script src="https://kit.fontawesome.com/c37a45aba4.js" crossorigin="anonymous"></script>
     <title>Weather</title>
 </head>
 
 <body>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+     crossorigin=""></script>
     <script src="./node_modules/@splidejs/splide/dist/js/splide.min.js"></script>
+    <script src="./scripts/map.js" type="module"></script>
     <script src="./scripts/weather.js" type="module"></script>
     <script src="./scripts/main.js" type="module"></script>
 
@@ -243,9 +250,18 @@
                 </div>
             </div>
         </section>
-
-
     </main>
+
+    <div id="map-popup-wrapper" class="popup-hidden">
+        <div id="map-popup">
+            <h2>Enter a new location</h2>
+            <div id="map"></div>
+            <div id="button-wrapper">
+                <button id="button-select" class="popup-button">Select</button>
+                <button id="button-cancel" class="popup-button">Cancel</button>
+            </div>
+        </div>
+    </div>
 
 
 </body>

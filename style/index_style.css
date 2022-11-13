@@ -1,7 +1,12 @@
+:root{
+    --main-transition-duration: 150ms;
+}
+
 body{
     height: 100vh;
     min-height: 850px;
     margin: 0px; 
+    font-family: Quicksand, sans-serif;
 }
 
 #main{
@@ -14,7 +19,6 @@ body{
     justify-content: space-evenly;
     align-items: center;
     background-color: bisque;
-    font-family: Quicksand, sans-serif;
 }
 
 #main-display{
@@ -32,6 +36,12 @@ body{
     margin: 5px 0px;
     font-size: 26px;
     text-align: center;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+#main-display-location:hover{
+    color: rgb(21, 21, 201);
 }
 
 #main-display-date{
@@ -138,6 +148,94 @@ body{
 
 .slide-focused{
     border: 3px solid white; 
+}
+
+#map-popup-wrapper{
+    width: 100%; 
+    height: 100%;
+    /* min-height: 850px; */
+    display: grid;
+    align-items: center;
+    position: fixed; 
+    top: 0px;
+    background-color: rgba(134, 134, 134, 0.548);
+    z-index: 100; 
+    transition-property: opacity visibility;
+    transition-duration: var(--main-transition-duration);
+}
+
+.popup-hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+
+#map-popup{
+    width: 95%;
+    height: 95%;
+    max-width: 1200px;
+    max-height: 700px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: crimson;
+}
+
+#map-popup > h2{
+    margin: 15px auto 10px;
+}
+
+#map{
+    width: 95%;
+    /* height: 80%; */
+    flex-grow: 1;
+}
+
+#button-wrapper{
+    width: 95%;
+    max-width: 800px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkmagenta;
+}
+
+.popup-button{
+    flex-basis: 200px;
+    height: 40px;
+    margin: 10px;
+    font-family: Quicksand, sans-serif;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: 2px solid black; 
+}
+
+#button-select{
+    background-color: rgb(86, 146, 86);
+    /* border: 3px solid rgb(62, 124, 62);  */
+}
+
+#button-select:hover{
+    background-color: rgb(73, 131, 73);
+}
+
+#button-select:active{
+    background-color: rgb(57, 112, 57);
+}
+
+#button-cancel{
+    background-color: rgb(190, 70, 70);
+    /* border: 3px solid rgb(145, 55, 55); */
+}
+
+#button-cancel:hover{
+    background-color: rgb(163, 53, 53);
+}
+
+#button-cancel:active{
+    background-color: rgb(128, 33, 33);
 }
 
 @media (max-width: 620px){
