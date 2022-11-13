@@ -4,8 +4,7 @@
 }
 
 *{
-    transition-property: background-color color;
-    transition-duration: var(--main-transition-duration);
+    transition: background-color var(--main-transition-duration);
 }
 
 body{

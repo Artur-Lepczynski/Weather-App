@@ -165,7 +165,6 @@ updateWeatherData(latitude, longitude);
 function updateTheme(current){
     let time = current.weather[0].icon; 
     time = time[time.length - 1]; 
-    console.log("time is:", time)
     if(time === "n"){
         dayTheme.disabled = true; 
         nightTheme.disabled = false; 
