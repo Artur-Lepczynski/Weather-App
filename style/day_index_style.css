@@ -1,4 +1,16 @@
 :root{
-    --loading-color-1: rgb(160, 160, 160); 
-    --loading-color-2: rgb(140, 140, 140); 
+    --body-bg: #f9f9f9;
+    --main-bg: #edf1f4;
+    --main-display-bg: #dadee1;
+    --main-display-border: #ced1d4;
+    --main-display-loc-hover: #3988c9;
+    /* --main-display-loc-hover: rgb(30, 30, 156); */
+
+    --accent-1: #3988c9; 
+    --accent-2: #0c3d64; 
+
+    --loading-color-1: #edf1f4; 
+    --loading-color-2: #dadee1; 
+
+    --text-1: black; 
 }

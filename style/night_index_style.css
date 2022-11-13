@@ -1,0 +1,16 @@
+:root{
+    --body-bg: #181f23;
+    --main-bg: #222a2f;
+    --main-display-bg: #38434f;
+    --main-display-border: #28323b;
+    --main-display-loc-hover: #21aa81;
+    /* --main-display-loc-hover: rgb(30, 30, 156); */
+
+    --accent-1: #21aa81;
+    --accent-2: #10503d;
+
+    --loading-color-1: #222a2f; 
+    --loading-color-2: #38434f; 
+
+    --text-1: rgb(221, 221, 221); 
+}

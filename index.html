@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/day_index_style.css">
-    <link rel="stylesheet" href="./style/night_index_style.css" disabled>
+    <link id="style-day" rel="stylesheet" href="./style/day_index_style.css">
+    <link id="style-night" rel="stylesheet" href="./style/night_index_style.css" disabled>
     <link rel="stylesheet" href="./style/index_style.css">
     <link rel="stylesheet" href="./node_modules/@splidejs/splide/dist/css/splide.min.css">
     <link rel="stylesheet" href="./node_modules/@splidejs/splide/dist/css/themes/splide-skyblue.min.css">
@@ -254,7 +254,7 @@
         </section>
     </main>
 
-    <div id="map-popup-wrapper" class="popup-hidden">
+    <div id="map-popup-wrapper" class="popup-wrapper popup-hidden">
         <div id="map-popup">
             <h2>Enter a new location</h2>
             <div id="map"></div>
@@ -265,6 +265,20 @@
         </div>
     </div>
 
+    <div id="error-popup-wrapper" class="popup-wrapper popup-hidden">
+        <div id="error-popup">
+            <h2>API Error</h2>
+            <p>The following API error has occured:</p>
+            <p id="error-popup-message">---</p>
+            <p>
+                This is most likely due to too many API calls in the past minute,
+                the maximum number of calls is 60 per minute. 
+            </p>
+            <p>Please wait a moment and try reloading the page</p>
+            <p>Thank you</p>
+            <button id="button-reload" class="popup-button">Reload</button>
+        </div>
+    </div>
 
 </body>
 

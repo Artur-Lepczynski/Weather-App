@@ -17,10 +17,10 @@ const splideOptions = {
         970: {
             perPage: 3,
         },
-        670: {
+        720: {
             perPage: 2,
         },
-        370: {
+        470: {
             perPage: 1,
         }
     }
@@ -37,8 +37,12 @@ mainLocationIcon.style.marginRight = "6px";
 
 const mainReloadIcon = document.createElement("i"); 
 mainReloadIcon.className = "fa-solid fa-rotate-right";
+mainReloadIcon.id = "main-display-reload"; 
 mainReloadIcon.style.marginLeft = "6px";
 mainReloadIcon.style.cursor = "pointer"; 
+
+const dayTheme = document.querySelector("#style-day");
+const nightTheme = document.querySelector("#style-night");
 
 const mainDisplay = document.querySelector("#main-display"); 
 const mainLocation = document.querySelector("#main-display-location");
@@ -72,26 +76,47 @@ export let longitude = 21.01;
 let forecastList; 
 let timezone; 
 
-let popup = document.querySelector("#map-popup-wrapper");
-let popupButtonSelect = document.querySelector("#button-select"); 
-let popupButtonCancel = document.querySelector("#button-cancel"); 
+const mapPopup = document.querySelector("#map-popup-wrapper");
+const mapPopupButtonSelect = document.querySelector("#button-select"); 
+const mapPopupButtonCancel = document.querySelector("#button-cancel"); 
 
 mainLocation.addEventListener("click", (event)=>{
-    popup.classList.remove("popup-hidden");
+    mapPopup.classList.remove("popup-hidden");
 });
 
-popupButtonSelect.addEventListener("click", (event)=>{
-    popup.classList.add("popup-hidden");
+mainLocation.addEventListener("mouseenter", (event)=>{
+    mainLocationIcon.style.transform = "scale(1.2)";
+});
+
+mainLocation.addEventListener("mouseleave", (event)=>{
+    mainLocationIcon.style.transform = "none";
+});
+
+mapPopupButtonSelect.addEventListener("click", (event)=>{
+    mapPopup.classList.add("popup-hidden");
     latitude = tempLatitude; 
     longitude = tempLongitude; 
     updateWeatherData(latitude, longitude);
 });
 
-popupButtonCancel.addEventListener("click", (event)=>{
-    popup.classList.add("popup-hidden");
+mapPopupButtonCancel.addEventListener("click", (event)=>{
+    mapPopup.classList.add("popup-hidden");
     setTimeout(()=>{
         setViewAndMarker(latitude, longitude);
     }, 100); 
+});
+
+const errorPopup = document.querySelector("#error-popup-wrapper");
+const errorPopupButtonReload = document.querySelector("#button-reload"); 
+const errorPopupMessage = document.querySelector("#error-popup-message"); 
+
+function showError(error) {
+    errorPopup.classList.remove("popup-hidden");
+    errorPopupMessage.textContent = error; 
+};
+
+errorPopupButtonReload.addEventListener("click", (event)=>{
+    history.go(0);
 });
 
 mainReloadIcon.addEventListener("click", (event)=>{
@@ -121,22 +146,34 @@ async function updateWeatherData(latitude, longitude) {
         let {current, forecast} = await getWeather(latitude, longitude);
         // let current = JSON.parse(tempCurrent);
         // let forecast = JSON.parse(tempForecast);
-        // console.log(typeof current, JSON.stringify(current, null, "\t")); 
-        // console.log(typeof forecast, JSON.stringify(forecast, null, "\t"));
         timezone = current.timezone; 
         forecastList = createForecastList(current, forecast);
         selectDailySlide(dailySplides[0]);
         updateMainDisplay(current);
         updateDailySlides(current, forecastList);
         updateHourlySlides(forecastList, 0);
+        updateTheme(current); 
         toggleLoadingAnimation(false); 
-    } catch (err) {
-        console.log(err);
-        showError();
+    } catch (error) {
+        console.log(error);
+        showError(error.message);
     };
 };
 
 updateWeatherData(latitude, longitude);
+
+function updateTheme(current){
+    let time = current.weather[0].icon; 
+    time = time[time.length - 1]; 
+    console.log("time is:", time)
+    if(time === "n"){
+        dayTheme.disabled = true; 
+        nightTheme.disabled = false; 
+    }else{
+        dayTheme.disabled = false; 
+        nightTheme.disabled = true; 
+    };
+};
 
 function toggleLoadingAnimation(on){
     let temp = [dailySplideElement, hourlySplideElement, mainDisplay]; 
@@ -182,9 +219,7 @@ function convertToTimezone(timestamp, timezone){
 };
 
 function createForecastList(current, forecast) {
-    //create 5 elem list of maps, each for 1 day: 
     let forecastList = [];
-    //dateTemp in local time (warsaw)
     let dateTemp = convertToTimezone(current.dt, current.timezone); 
 
     for (let i = 0; i < 5; i++) {
@@ -202,14 +237,8 @@ function createForecastList(current, forecast) {
 };
 
 function updateDailySlides(current, forecastList) {
-    //measurement times: 0:00, 3, 6, 9, 12, 15, 18, 21
-
-    //today in forecast location (Warsaw) (for console display purpose only)
-    let today = convertToTimezone(current.dt, current.timezone);
-    console.log("time in selected timezone: ", today.getUTCHours(), today.getUTCMinutes());
 
     forecastList.forEach((day, i) => {
-        // console.log("day slide for day:", i, day.length);
         if (i === 0) {
             if (day.length !== 0) {
                 applyDailySlideData(getDailySlideData(day), i);
@@ -226,19 +255,14 @@ function updateDailySlides(current, forecastList) {
 };
 
 function getDailySlideData(day) {
-    //measurement times: 0:00, 3, 6, 9, 12, 15, 18, 21
     let tempMaxAvg = 0;
     let tempMinAvg = 0;
-
-    // console.log("before splice:", day);
 
     if (day.length === 3) {
         day = day.slice(0, 2);
     } else if (day.length >= 4) {
         day = day.slice(-4, day.length - 1);
     };
-
-    // console.log("after splice:", day);
 
     day.forEach(item => {
         tempMaxAvg += item.main.temp_max;
@@ -256,7 +280,6 @@ function getDailySlideData(day) {
 
     let currentDay = convertToTimezone(day[0].dt, timezone);
 
-    // console.log(currentDay, tempMaxAvg, tempMinAvg, description, iconSrc);
     return { currentDay, tempMaxAvg, tempMinAvg, description, iconSrc };
 };
 
@@ -287,7 +310,6 @@ function updateHourlySlides(forecastList, day) {
 };
 
 function applyHourlySlideData(data, hourNumber) {
-    //convert forecast times to Warsaw timezone
     let forecastDate = convertToTimezone(data.dt, timezone);
     let today = convertToTimezone(new Date().valueOf() / 1000, timezone); 
     let timeString; 
@@ -308,16 +330,3 @@ function applyHourlySlideData(data, hourNumber) {
 function getIconURL(icon) {
     return `http://openweathermap.org/img/wn/${icon}@2x.png`;
 };
-
-function showError() {
-    console.log("I will show an error now");
-};
-
-
-
-
-
-
-
-
-
