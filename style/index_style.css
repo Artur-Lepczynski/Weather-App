@@ -225,7 +225,7 @@ body{
     top: 0px;
     backdrop-filter: blur(5px);
     z-index: 100; 
-    transition-property: opacity visibility;
+    transition-property: opacity, visibility;
     transition-duration: var(--main-transition-duration);
 }
 
