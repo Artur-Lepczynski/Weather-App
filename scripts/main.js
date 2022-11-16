@@ -184,7 +184,8 @@ function toggleLoadingAnimation(on){
 };
 
 function updateMainDisplay(current) {
-    mainLocation.textContent = (current.name || "unknown") + ", " + (current.sys.country || "--");
+    // mainLocation.textContent = (current.name || "unknown") + ", " + (current.sys.country || "--");
+    mainLocation.textContent = current.name ? current.name + ", " + current.sys.country : "unknown";
     mainLocation.prepend(mainLocationIcon);
 
     let date = convertToTimezone(current.dt, current.timezone);
@@ -313,7 +314,7 @@ function applyHourlySlideData(data, hourNumber) {
     let today = convertToTimezone(new Date().valueOf() / 1000, timezone); 
     let timeString; 
 
-    if(today.getDate() === forecastDate.getDate()){
+    if(today.getUTCDate() === forecastDate.getUTCDate()){
         timeString = "Today, " + Intl.DateTimeFormat("en", {timeZone: "UTC", hour12: false, hour: "numeric", minute: "numeric" }).format(forecastDate);
     }else{
         timeString = Intl.DateTimeFormat("en", {timeZone: "UTC", hour12: false, weekday: "short", day: "2-digit", hour: "numeric", minute: "numeric" }).format(forecastDate);
